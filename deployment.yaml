@@ -1,38 +1,46 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pipeline-demo
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
-    app: flaskdemo
-  name: flaskdemo
+    app: myweb
+  name: myweb
+  namespace: pipeline-demo
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: flaskdemo
-  strategy: {}
+      app: myweb
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: flaskdemo
+        app: myweb
     spec:
       containers:
-      - image: raj80dockerid/test:6
-        name: flaskdemo
-        resources: {}
-status: {}
+      - image: sandeepcris/myweb:<TAG>
+        imagePullPolicy: Always
+        name: myweb
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb-service
   labels:
-    app: lb-service
+    app: myweb
+  name: myweb
+  namespace: pipeline-demo
 spec:
-  type: LoadBalancer
   ports:
-  - port: 80
-    targetPort: 5000
+  - nodePort: 32223
+    port: 80
+    protocol: TCP
+    targetPort: 80
   selector:
-    app: flaskdemo
+    app: myweb
+  type: NodePort
