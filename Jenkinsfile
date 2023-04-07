@@ -2,7 +2,9 @@ node {
     def app
     stage('Clone repository') {
         checkout scm
+        sh '''
         echo "git cloned"
+        '''
     }
 
     stage('Update GIT') {
@@ -10,6 +12,8 @@ node {
                 //catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+                        sh '''
+                        set +x
                         echo "update git starts"
                         sh "git config user.email sandeep.cris@gmail.com"
                         sh "git config user.name sandeepcris"
@@ -20,6 +24,7 @@ node {
                         sh "git add ."
                         sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
                         sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/jenkins-demo-manifest.git HEAD:main"
+                        '''
                     }
                 //}
             }
