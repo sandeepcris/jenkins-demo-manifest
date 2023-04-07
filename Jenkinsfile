@@ -14,8 +14,6 @@ node {
                   echo "update git starts"
                   sh "git config --global user.email sandeep.cris@gmail.com"
                   sh "git config --global user.name sandeepcris"
-                  sh "git config --global user.http_proxy http://10.64.26.77:3128"
-                  sh "git config --global user.https_proxy http://10.64.26.77:3128"
                   //sh "git switch master"
                   sh "cat deployment.yaml"
                   sh "sed -i 's+sandeepcris/myweb:.*+sandeepcris/myweb:${DOCKERTAG}+g' deployment.yaml"
