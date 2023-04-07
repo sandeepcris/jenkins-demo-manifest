@@ -1,10 +1,8 @@
 node {
     def app
-
     stage('Clone repository') {
-      
-
         checkout scm
+        echo "git cloned"
     }
 
     stage('Update GIT') {
@@ -12,6 +10,7 @@ node {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+                        echo "update git starts"
                         sh "git config user.email sandeep.cris@gmail.com"
                         sh "git config user.name sandeepcris"
                         //sh "git switch master"
