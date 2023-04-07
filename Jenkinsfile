@@ -12,8 +12,10 @@ node {
                withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                   //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                   echo "update git starts"
-                  sh "git config user.email sandeep.cris@gmail.com"
-                  sh "git config user.name sandeepcris"
+                  sh "git config --global user.email sandeep.cris@gmail.com"
+                  sh "git config --global user.name sandeepcris"
+                  sh "git config --global  http://10.64.26.77:3128"
+                  sh "git config --global  https://10.64.26.77:3128"
                   //sh "git switch master"
                   sh "cat deployment.yaml"
                   sh "sed -i 's+sandeepcris/myweb:.*+sandeepcris/myweb:${DOCKERTAG}+g' deployment.yaml"
