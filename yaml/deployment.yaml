@@ -23,7 +23,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: sandeepcris/myweb:37
+      - image: sandeepcris/myweb:35
         imagePullPolicy: Always
         name: myweb
 
