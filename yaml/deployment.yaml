@@ -13,7 +13,7 @@ metadata:
   name: myweb
   namespace: pipeline-demo
 spec:
-  replicas: 6
+  replicas: 4
   selector:
     matchLabels:
       app: myweb
@@ -23,7 +23,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: sandeepcris/myweb:40
+      - image: sandeepcris/myweb:39
         imagePullPolicy: Always
         name: myweb
 
